@@ -77,9 +77,10 @@ public class ShiftCipher {
                     }
                     break;
                 }
-                if(NewWord[i].equals("")) {
-                    NewWord[i] += Word.charAt(i);
-                }
+            }
+
+            if(NewWord[i].equals("")) {
+                NewWord[i] += Word.charAt(i);
             }
         }
         for(int i = 0; i < NewWord.length;i++) {
