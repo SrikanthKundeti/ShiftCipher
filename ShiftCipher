@@ -1,0 +1,126 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
+import java.util.Scanner;
+import java.lang.String;
+
+public class ShiftCipher {
+
+
+
+    public static void Encode(String Word, int ShiftValue) {
+        String UpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String LowerCase = "abcdefghijklmnopqrstuvwxyz";
+        String[] NewWord = new String[Word.length()];
+
+        for(int i = 0; i < NewWord.length;i++) {
+            NewWord[i] = "";
+        }
+        for(int i = 0; i < Word.length();i++) {
+
+            for(int j = 0; j < UpperCase.length();j++) {
+                if(UpperCase.charAt(j) == Word.charAt(i)) {
+
+                    NewWord[i] += UpperCase.charAt(((ShiftValue +  j)%26));
+                    break;
+                }
+                if(LowerCase.charAt(j) == Word.charAt(i)) {
+                    NewWord[i] += LowerCase.charAt(((ShiftValue + j)%26));
+                    break;
+                }
+            }
+            if(NewWord[i].equals("")) {
+                NewWord[i] += Word.charAt(i);
+            }
+        }
+
+        for(int i = 0; i < NewWord.length;i++) {
+            System.out.print(NewWord[i]);
+        }
+    }
+
+    public static void Decode(String Word, int ShiftValue) {
+        String UpperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String LowerCase = "abcdefghijklmnopqrstuvwxyz";
+        String[] NewWord = new String[Word.length()];
+
+        int tempShift = ShiftValue;
+
+        for(int i = 0; i < NewWord.length;i++) {
+            NewWord[i] = "";
+        }
+        for(int i = 0; i < Word.length();i++) {
+
+            for(int j = 0; j < UpperCase.length();j++) {
+                if(UpperCase.charAt(j) == Word.charAt(i)) {
+                    while(tempShift > 26) {
+                        tempShift = tempShift - 26;
+
+                    }
+                    if(tempShift > j) {
+                        tempShift = 26 - tempShift;
+                        NewWord[i] += UpperCase.charAt(tempShift + j);
+                    } else {
+                        NewWord[i] += UpperCase.charAt(j - tempShift);
+                    }
+                    break;
+                }
+                if(LowerCase.charAt(j) == Word.charAt(i)) {
+                    while(tempShift > 26) {
+                        tempShift = tempShift - 26;
+
+                    }
+                    if(tempShift > j) {
+                        tempShift = 26 - tempShift;
+                        NewWord[i] += LowerCase.charAt(tempShift + j);
+                    } else {
+                        NewWord[i] += LowerCase.charAt(j - tempShift);
+                    }
+                    break;
+                }
+                if(NewWord[i].equals("")) {
+                    NewWord[i] += Word.charAt(i);
+                }
+            }
+        }
+        for(int i = 0; i < NewWord.length;i++) {
+
+            System.out.print(NewWord[i]);
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner ScannerRead = new Scanner(System.in);
+        System.out.println("Please Choose to either Decode(D) or Encode(E):");
+        String choice = ScannerRead.next();
+        System.out.println("Please Choose Shift Value (Note: Must be an Integer): ");
+        int ShiftValue = Integer.parseInt(ScannerRead.next());
+        System.out.println("For Maintaining the Width of the Page, SELECT Words per Line: ");
+        int WordsPerLine = Integer.parseInt(ScannerRead.next());
+        System.out.println("Enter Secret Message (Click Enter Once Finished): ");
+
+        int counter = 0;
+        if(choice.equals("D") || choice.equals("d")) {
+            while(ScannerRead.hasNext()) {
+                Decode(ScannerRead.next(),ShiftValue);
+                counter++;
+                System.out.print(" ");
+                if(counter >= WordsPerLine) {
+                    System.out.println();
+                    counter = 0;
+                }
+            }
+        } else if(choice.equals("E") || choice.equals("e")) {
+
+            while(ScannerRead.hasNext()) {
+                Encode(ScannerRead.next(),ShiftValue);
+                counter++;
+                System.out.print(" ");
+                if(counter >= WordsPerLine) {
+                    System.out.println();
+                    counter = 0;
+                }
+            }
+        }
+    }
+}
