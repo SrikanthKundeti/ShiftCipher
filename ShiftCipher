@@ -57,7 +57,7 @@ public class ShiftCipher {
 
                     }
                     if(tempShift > j) {
-                        tempShift = 26 - tempShift;
+                        tempShift = 26 - tempShift + 1;
                         NewWord[i] += UpperCase.charAt(tempShift);
                     } else {
                         NewWord[i] += UpperCase.charAt(j - tempShift);
@@ -78,9 +78,9 @@ public class ShiftCipher {
                     }
                     break;
                 }
-                tempShift = ShiftValue;
             }
 
+            tempShift = ShiftValue;
             if(NewWord[i].equals("")) {
                 NewWord[i] += Word.charAt(i);
             }
@@ -127,3 +127,4 @@ public class ShiftCipher {
         }
     }
 }
+
