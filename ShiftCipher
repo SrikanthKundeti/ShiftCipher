@@ -1,5 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.util.Scanner;
 import java.lang.String;
 
@@ -28,6 +26,7 @@ public class ShiftCipher {
                     break;
                 }
             }
+
             if(NewWord[i].equals("")) {
                 NewWord[i] += Word.charAt(i);
             }
@@ -44,6 +43,7 @@ public class ShiftCipher {
         String[] NewWord = new String[Word.length()];
 
         int tempShift = ShiftValue;
+        int temp;
 
         for(int i = 0; i < NewWord.length;i++) {
             NewWord[i] = "";
@@ -58,7 +58,7 @@ public class ShiftCipher {
                     }
                     if(tempShift > j) {
                         tempShift = 26 - tempShift;
-                        NewWord[i] += UpperCase.charAt(tempShift + j);
+                        NewWord[i] += UpperCase.charAt(tempShift);
                     } else {
                         NewWord[i] += UpperCase.charAt(j - tempShift);
                     }
@@ -70,16 +70,19 @@ public class ShiftCipher {
 
                     }
                     if(tempShift > j) {
-                        tempShift = 26 - tempShift;
-                        NewWord[i] += LowerCase.charAt(tempShift + j);
+                        temp = tempShift - j;
+                        tempShift = 26 - temp;
+                        NewWord[i] += LowerCase.charAt(tempShift);
                     } else {
                         NewWord[i] += LowerCase.charAt(j - tempShift);
                     }
                     break;
                 }
-                if(NewWord[i].equals("")) {
-                    NewWord[i] += Word.charAt(i);
-                }
+                tempShift = ShiftValue;
+            }
+
+            if(NewWord[i].equals("")) {
+                NewWord[i] += Word.charAt(i);
             }
         }
         for(int i = 0; i < NewWord.length;i++) {
