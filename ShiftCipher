@@ -78,9 +78,9 @@ public class ShiftCipher {
                     }
                     break;
                 }
-                tempShift = ShiftValue;
             }
 
+            tempShift = ShiftValue;
             if(NewWord[i].equals("")) {
                 NewWord[i] += Word.charAt(i);
             }
